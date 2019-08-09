@@ -34,8 +34,25 @@ Clone HTML Form Inputs
             mainContainerId: 'main-container',
             cloneContainer: 'clone-container',
             removeButtonClass: 'remove-education',
-            minimum: 1,
-            limit: 5,
+            removeConfirm: false,
+            append: '<a href="javascript:void(0)" class="remove-social-media btn btn-sm btn-danger remove-social-media">Remove</a>',
+            minLimit: 0,
+            maxLimit: 5,
+            init: function() {
+                console.info(':: Initialize Plugin ::');
+            },
+            beforeRender: function() {
+                console.info(':: Before rendered callback called');
+            },
+            afterRender: function() {
+                console.info(':: After rendered callback called');
+            },
+            afterRemove: function() {
+                console.warn(':: After remove callback called');
+            },
+            beforeRemove: function() {
+                console.warn(':: Before remove callback called');
+            }
         });
     </script>
 </blockquote>
