@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clone HTML/FORM</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css">
+    <script src="/path-to-file/cloneData.js" type="text/javascript"></script>
+
+</head>
+<body>
+<div class="container">
+    <form>
+        <fieldset>
+            <legend>Personalia:</legend>
+
+            <div class="input-group">
+                <label class="col-form-label">Name</label>
+                <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group">
+                <label class="col-form-label">Email</label>
+                <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+            </div>
+
+
+            <div class="input-group">
+                <label class="col-form-label">Mobile</label>
+                <input type="text" class="form-control" placeholder="Mobile" aria-describedby="basic-addon1">
+            </div>
+
+            <div id="main-container">
+                <fieldset class="clone-container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="input-group">
+                                <label class="col-sm-2 col-form-label">Country</label>
+                                <div class="col-sm-10">
+                                    <select class="select2" id="country_0" name="address[0][country]">
+                                        <option value="">Select Country</option>
+                                        <option value="">India</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="input-group">
+                                <label class="col-sm-2 col-form-label">State</label>
+                                <div class="col-sm-10">
+                                    <select class="select2" id="state_0"  name="address[0][state]">
+                                        <option>Select State</option>
+                                        <option value="">Uttarpradesh</option>
+                                        <option value="">Delhi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="input-group">
+                                <label class="col-sm-2 col-form-label">City</label>
+                                <div class="col-sm-10">
+                                    <select class="select2" id="city_0" name="address[0][city]">
+                                        <option>Select City</option>
+                                        <option value="">Kanpur</option>
+                                        <option value="">Lucknow</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <a href="javascript:void(0);" id="add-more" title="Add field">Add More Link</a>
+        </fieldset>
+    </form>
+</div>
+
+<script>
+    $('a#add-more').cloneData({
+        mainContainerId: 'main-container',
+        cloneContainer: 'clone-container',
+        removeButtonClass: 'remove-item',
+        removeConfirm: true,
+        append: '<a href="javascript:void(0)" class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>',
+        minLimit: 0,
+        maxLimit: 5,
+        init: function () {
+            console.info(':: Initialize Plugin ::');
+        },
+        beforeRender: function () {
+            console.info(':: Before rendered callback called');
+        },
+        afterRender: function () {
+            console.info(':: After rendered callback called');
+        },
+        afterRemove: function () {
+            console.warn(':: After remove callback called');
+        },
+        beforeRemove: function () {
+            console.warn(':: Before remove callback called');
+        }
+    });
+
+    $('.select2').select2({
+        placeholder: 'Select a month'
+    });
+</script>
+</body>
+</html>
