@@ -10,11 +10,25 @@
             mainContainerId: 'main-container', // Main container Should be ID
             cloneContainer: 'clone-container', // Which you want to clone 
             removeButtonClass: 'remove-education', // Remove button for remove cloned HTML 
-            minimum: 1, // Default 1 set minimum clone HTML required
-            limit: 5, // Default unlimited or set maximum limit of clone HTML
+            minLimit: 1, // Default 1 set minimum clone HTML required
+            maxLimit: 5, // Default unlimited or set maximum limit of clone HTML
             append: '<div>Hi i am appended</div>', // Set extra HTML append to clone HTML
             excludeHTML: ".exclude", // remove HTML from cloned HTML
-            
+            init: function() {
+                console.info(':: Initialize Plugin ::');
+            },
+            beforeRender: function() {
+                console.info(':: Before rendered callback called');
+            },
+            afterRender: function() {
+                console.info(':: After rendered callback called');
+            },
+            afterRemove: function() {
+                console.warn(':: After remove callback called');
+            },
+            beforeRemove: function() {
+                console.warn(':: Before remove callback called');
+            }
         });
  *
  * @param: string	excludeHTML - A jQuery selector used to exclude an element and its children
