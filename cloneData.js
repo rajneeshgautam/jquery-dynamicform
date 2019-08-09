@@ -2,14 +2,15 @@
  * Instructions: Call $(selector).cloneData(options) on an element with a jQuery type selector
  * defined in the attribute "rel" tag. This defines the DOM element to copy.
  *
- * @CreadtedBY Name: Rajneesh Gautam (Web Developer)
+ * @CreadtedBY Rajneesh Gautam
  * @CreadtedOn 24/07/2019
  *
- * @example: 
-        $('a#add-education').cloneData({
+ @example:
+
+ $('a#add-education').cloneData({
             mainContainerId: 'main-container', // Main container Should be ID
-            cloneContainer: 'clone-container', // Which you want to clone 
-            removeButtonClass: 'remove-education', // Remove button for remove cloned HTML 
+            cloneContainer: 'clone-container', // Which you want to clone
+            removeButtonClass: 'remove-education', // Remove button for remove cloned HTML
             minLimit: 1, // Default 1 set minimum clone HTML required
             maxLimit: 5, // Default unlimited or set maximum limit of clone HTML
             append: '<div>Hi i am appended</div>', // Set extra HTML append to clone HTML
@@ -31,8 +32,9 @@
             }
         });
  *
+ *
  * @param: string	excludeHTML - A jQuery selector used to exclude an element and its children
- * @param: integer	limit - The number of allowed copies. Default: 0 is unlimited
+ * @param: integer	maxLimit - The number of allowed copies. Default: 0 is unlimited
  * @param: string	append - HTML to attach at the end of each copy. Default: remove link
  * @param: string	copyClass - A class to attach to each copy
  * @param: boolean	clearInputs - Option to clear each copies text input fields or textarea
@@ -43,6 +45,26 @@
 
     $.fn.cloneData = function(options) {
 
+        if (typeof init === 'function') { // make sure the before callback is a function
+            init.call(this); // brings the scope to the before callback
+        }
+
+        if (typeof beforeRender === 'function') { // make sure the before callback is a function
+            beforeRender.call(this); // brings the scope to the before callback
+        }
+
+        if (typeof afterRender === 'function') { // make sure the after callback is a function
+            afterRender.call(this); // brings the scope to the after callback
+        }
+
+        if (typeof beforeRemove === 'function') { // make sure the after callback is a function
+            beforeRemove.call(this); // brings the scope to the after callback
+        }
+
+        if (typeof afterRemove === 'function') { // make sure the after callback is a function
+            afterRemove.call(this); // brings the scope to the after callback
+        }
+
         let settings = jQuery.extend({
             mainContainerId: "clone-container",
             cloneContainer: "clone-item",
@@ -50,17 +72,32 @@
             emptySelector: ".empty",
             copyClass: "clone-div",
             removeButtonClass: "remove-item",
+            removeConfirm: false,
             append: '',
             cloneHtml: null,
             clearInputs: true,
-            limit: 0, // 0 = unlimited
-            minimum: 1, // 0 = unlimited
+            maxLimit: 0, // 0 = unlimited
+            minLimit: 1, // 0 = unlimited
+            defaultRender: 1, // 0 = unlimited
             counterIndex: 0,
             select2InitIds: [],
             ckeditorIds: [],
         }, options);
 
-        //settings.limit = parseInt(settings.limit);
+        // extend the options from pre-defined values:
+        let callback = $.extend({
+            init: function() {},
+            beforeRender: function() {},
+            afterRender: function() {},
+            beforeRemove: function() {},
+            afterRemove: function() {}
+        }, arguments[0] || {});
+
+        // call the beforeRender and apply the scope:
+        callback.init.call(this);
+
+
+        //settings.maxLimit = parseInt(settings.maxLimit);
         settings.counterIndex = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
 
         /* Remove all extra attribute and plugin data from cloned HTML*/
@@ -124,17 +161,28 @@
 
             $('.' + option.cloneContainer).remove();
             //console.log($(settings.cloneHtml).html());
+
+            if(settings.defaultRender > 0){
+                //alert(settings.defaultRender);
+            }
         });
 
         $(document).on('click', '.' + settings.removeButtonClass, function(){
-            if($('.' + settings.cloneContainer).length > settings.minimum){
-                $(this).parents('.'+settings.cloneContainer).slideUp(function(){
-                    //if($('.' + settings.cloneContainer).length > 1) {
-                        $(this).remove();
-                    //}
-                });
+            callback.beforeRemove.call(this);
+            if($('.' + settings.cloneContainer + '.' + settings.copyClass).length > settings.minLimit){
+                if(settings.removeConfirm){
+                    if(confirm('Are you sure want to delete?')){
+                        $(this).parents('.'+settings.cloneContainer).slideUp(function(){
+                            $(this).remove();
+                        });
+                    }
+                } else {
+                    $(this).parents('.'+settings.cloneContainer).slideUp(function(){
+                        $.when($(this).remove()).then( callback.afterRemove.call(this) );
+                    });
+                }
             }else{
-                alert('You must have minimum ('+ settings.minimum + ') item.');
+                alert('You must have minimum ('+ settings.minLimit + ') item.');
             }
 
         });
@@ -144,11 +192,14 @@
 
             // set click action
             $(this).click(function(){
+
+                callback.beforeRender.call(this);
+
                 //var rel = $(this).attr('rel'); // rel in jquery selector format
                 let counter = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
 
-                // stop append HTML if limit exceed
-                if (settings.limit != 0 && counter >= settings.limit){
+                // stop append HTML if maximum limit exceed
+                if (settings.maxLimit != 0 && counter >= settings.maxLimit){
                     alert('cannot add more inputs.');
                     return false;
                 }
@@ -292,8 +343,10 @@
                         }
 
                     });
-                });
 
+
+                });
+                callback.afterRender.call(this);
                 settings.counterIndex++;
                 return false;
             }); // end click action
