@@ -1,5 +1,5 @@
 
-![Clone Form Preview](http://demo.examruler.com/clone-html-from/example.png)
+![Clone Form Preview](https://github.com/rajneeshgautam/clone-html-from/blob/master/example.png)
 
 
 Demo
