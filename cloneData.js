@@ -100,31 +100,6 @@
         // call the beforeRender and apply the scope:
         callback.init.call(this);
 
-        /*let updateNameAttribute = function (input) {
-            let counter = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
-            $(this).find('[name]').each(function(){
-                let newid = $(this).attr('name') + (counter + 1);
-                let name_array = $(this).attr('name').split("[");
-                let input_name = null;
-                if(name_array.length > 1){
-                    input_name = name_array[0];
-                }else{
-                    input_name = name_array[0].replace(new RegExp("[0-9]", "g"), settings.counterIndex);
-                }
-
-                let words = newid.match(/[^[\]]+(?=])/g)
-                if (words) {
-                    newid.replace(/\[(.+?)\]/g, function($0, $1) {
-                        parent_index = !isNaN($1) ? settings.counterIndex : $1;
-                        input_name += '['+ parent_index +']';
-                    })
-                }
-
-                console.log('input_name', input_name);
-                $(this).attr('name', input_name);
-            });
-        }*/
-
         let addItem = function () {
             callback.beforeRender.call(this);
 
@@ -177,13 +152,10 @@
             }
             //console.log(heading_text);
             $(clone).find('legend').each(function(index, item){
-                /*console.log(item);
-                console.info(heading_text);*/
                 $(this).html(heading_text);
             });
 
             $(clone).find('[name]').each(function(){
-                //updateNameAttribute(this);
                 let newid = $(this).attr('name') + (item_exists + 1);
                 let name_array = $(this).attr('name').split("[");
                 let input_name = null;
@@ -221,13 +193,14 @@
                     $(clone).remove();
                 });
 
-                $(clone).find('.select2').each(function(){
+                $(clone).find('.select2-init').each(function(){
                     if($(this).attr('id')){
                         settings.select2InitIds.push('#' + $(this).attr('id'));
                     }
                 });
 
-                $(clone).find('.ckeditor').each(function(){
+                settings.ckeditorIds = [];
+                $(clone).find('.ckeditor-init').each(function(){
                     if($(this).attr('id')){
                         settings.ckeditorIds.push($(this).attr('id'));
                     }
@@ -244,9 +217,13 @@
                 $('.' + settings.cloneContainer).slideDown(400, function(){
 
                     /* Initialize again chosen dropdown after render HTML */
-                    $('.select-chosen').each(function(){
+                    $('.chosen-init').each(function(){
                         $(this).chosen().trigger('chosen:update');
                     });
+
+                    if($('.datepicker-init').length > 0) {
+                        $('.datepicker-init').datepicker({autoclose:true});
+                    }
 
                     if (settings.select2InitIds.length > 0) {
                         //console.warn(settings.select2InitIds);
@@ -260,9 +237,12 @@
                         });
                         settings.select2InitIds = [];
                     }
-
+                    //console.log(settings.ckeditorIds);
                     if (settings.ckeditorIds.length > 0) {
                         $.each(settings.ckeditorIds, function (index, id) {
+                            /*let editor = CKEDITOR.instances[id];
+                            if (editor) { editor.destroy(true); }*/
+                            //console.log(id);
                             CKEDITOR.replace(id);
 
                             let $ids = $('[id=cke_' + id + ']');
@@ -271,7 +251,6 @@
                                 $ids.remove();
                             }
                         });
-
                         settings.ckeditorIds = [];
                     }
 
@@ -400,11 +379,12 @@
 
 
             /* All ckeditor id store for reinitialize after render */
-            $(settings.cloneHtml).find('.ckeditor').each(function(){
+
+            /*$(settings.cloneHtml).find('.ckeditor').each(function(){
                 if($(this).attr('id')){
                     settings.ckeditorIds.push($(this).attr('id'));
                 }
-            });
+            });*/
 
             /* html remove after store and remove extra HTML */
             $('.' + option.cloneContainer).remove();
