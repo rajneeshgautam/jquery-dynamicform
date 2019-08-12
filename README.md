@@ -5,7 +5,7 @@
 Demo
 -----
 
-* [Demo 1](http://demo.examruler.com/clone-html-from//) - (Address Book).
+* [Demo 1](https://demo.examruler.com/clone-html-from//) - (Address Book).
 
 
 
