@@ -1,7 +1,17 @@
 # clone-html
 
 ![Clone Form Preview](https://github.com/rajneeshgautam/clone-html-from/blob/master/example.png)
-```javascript
+
+
+Demo
+-----
+
+* [Demo 1](http://demo.examruler.com/clone-html-from//) - (Address Book).
+
+
+
+
+```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css">
@@ -164,7 +174,7 @@
         //append: '<a href="javascript:void(0)" class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>', // Set extra HTML append to clone HTML
         minLimit: 2, // Default 1 set minimum clone HTML required
         maxLimit: 5, // Default unlimited or set maximum limit of clone HTML
-        defaultRender: 1,
+        defaultRender: 1, // Number of clone items rendered by default 
         init: function () {
             console.info(':: Initialize Plugin ::');
         },
