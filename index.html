@@ -1,46 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Clone HTML/FORM</title>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css">
-
-    <script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
-
-    <script src="cloneData.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.css">
+    <style>
+        body{background-color:#F9F9FC;font-family: 'Roboto', sans-serif;font-size:14px;}
+        .select2-container {
+            padding: 0;
+            border: none;
+        }
+        h3{margin-bottom:0;}
+        .card{box-shadow: 0 0 13px 0 rgba(82,63,105,.05);background-color: #fff;margin-bottom: 20px;border-radius: 4px;padding: 20px;}
+        .select2-choice {
+            display: block;
+            width: 100%;
+            height: calc(1.5em + .75rem + 2px) !important;
+            padding: .375rem .75rem !important;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5 !important;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+    </style>
 </head>
 <body>
+<div class="card">
+    <div class="container">
+        <h6><em>NOTE: If you are using any third party plugin then you must add following class to initiate.</em></h6>
+        <ol>
+            <li>Bootstrap Datepicker: add class into input "<span class="text-danger">datepicker-init</span>"</li>
+            <li>Ckeditor: add class into input "<span class="text-danger">ckeditor-init</span>"</li>
+            <li>Select2: add class into input "<span class="text-danger">select2-init</span>"</li>
+            <li>Chosen Dropdown: add class into input "<span class="text-danger">chosen-init</span>"</li>
+        </ol>
+    </div>
+</div>
 <div class="container">
-    <h3>NOTE: If you are using any third party plugin then you must add following class to initiate.</h3>
-    <ol>
-        <li>Bootstrap Datepicker: add class into input "<span class="text-danger">datepicker-init</span>"</li>
-        <li>Ckeditor: add class into input "<span class="text-danger">ckeditor-init</span>"</li>
-        <li>Select2: add class into input "<span class="text-danger">select2-init</span>"</li>
-        <li>Chosen Dropdown: add class into input "<span class="text-danger">chosen-init</span>"</li>
-    </ol>
-
-
     <div class="margin-t-md">
-
         <div class="customer-form">
-            <h3>Dynamic Form</h3>
-            <form id="" action="/create" method="post" role="form" autocomplete="off">
+            <div class="card">
+                <h3>Dynamic Form</h3>
+            </div>
+
+            <form action="submit.php" method="post" role="form" autocomplete="off">
+
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label" for="customer-first_name">First name</label>
                             <input type="text" id="customer-first_name" class="form-control" name="Customer[first_name]"
-                                   maxlength="32" aria-required="true">
+                                   maxlength="32" aria-required="true" placeholder="Rajneesh">
 
                             <p class="help-block help-block-error"></p>
                         </div>
@@ -49,7 +71,7 @@
                         <div class="form-group">
                             <label class="control-label" for="customer-last_name">Last name</label>
                             <input type="text" id="customer-last_name" class="form-control" name="Customer[last_name]"
-                                   maxlength="64" aria-required="true">
+                                   maxlength="64" aria-required="true" placeholder="Gautam">
 
                         </div>
                     </div>
@@ -59,155 +81,186 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label" for="customer-email">Email</label>
-                            <input type="text" id="customer-email" class="form-control" name="Customer[email]"
-                                   maxlength="32" aria-required="true">
-
+                            <input type="text" id="customer-email" class="form-control" name="Customer[email]" maxlength="32" aria-required="true">
                             <p class="help-block help-block-error"></p>
                         </div>
                     </div>
-
                     <div class="col-sm-6">
+
                         <div class="form-group">
                             <label class="control-label" for="customer-dob">DOB</label>
-                            <input type="text" id="customer-dob" class="form-control datepicker" name="Customer[email]">
+                            <div class="input-group">
+                                <input type="text" id="customer-dob" class="form-control datepicker" name="Customer[email]">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
+
                 <div id="main-container">
-                    <div class="panel panel-default">
-
+                    <div class="panel card">
                         <div class="panel-body container-item">
-                            <fieldset class="item panel panel-default" style="border: 1px solid black; padding: 10px;">
-                                <!-- widgetBody -->
-                                <legend style="width: auto;padding:10px;">Address: 1</legend>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="control-label" for="full_name_0">Full name</label>
-                                        <input type="text" id="full_name_0" class="form-control"
-                                               name="Address[0][full_name]" maxlength="128">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="address_line_one_0">Address line
-                                                    1</label>
-                                                <input type="text" id="address_line_one_0" class="form-control"
-                                                       name="Address[0][address_line1]" maxlength="255">
-                                                <p class="help-block help-block-error"></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="address_line_two_0">Address line
-                                                    2</label>
-                                                <input type="text" id="address_line_two_0" class="form-control"
-                                                       name="Address[0][address_line2]" maxlength="255">
-                                                <p class="help-block help-block-error"></p>
-                                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="address_line_one_0">Address line 1</label>
+                                            <input type="text" id="address_line_one_0" class="form-control" name="Address[0][address_line1]" maxlength="255">
+                                            <p class="help-block help-block-error"></p>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="city_0">City</label>
-                                                <input type="text" id="city_0" class="form-control"
-                                                       name="Address[0][city]" maxlength="64">
-                                                <p class="help-block help-block-error"></p>
-                                            </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="address_line_two_0">Address line 2</label>
+                                            <input type="text" id="address_line_two_0" class="form-control" name="Address[0][address_line2]" maxlength="255">
+                                            <p class="help-block help-block-error"></p>
                                         </div>
-
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="state_0">State</label>
-
-                                                <select id="state_0" class="form-control select2-init"
-                                                        name="Address[0][city]">
-                                                    <option value="" data-select2-id="2">Select a state ...</option>
-                                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                        <option value="AK">Alaska</option>
-                                                        <option value="HI">Hawaii</option>
-                                                    </optgroup>
-                                                    <optgroup label="Pacific Time Zone">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="customer-startdate_0">Start Date</label>
-                                                    <input type="text" id="customer-startdate_0" class="form-control datepicker-init" name="Address[0][startdate]">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="city_0">City</label>
+                                            <input type="text" id="city_0" class="form-control" name="Address[0][city]" maxlength="64">
+                                            <p class="help-block help-block-error"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="state_0">State</label>
+                                            <select class="form-control select2 select2-init" name="Address[0][state]" id="state_0">
+                                                <option>Alabama</option>
+                                                <option>Alaska </option>
+                                                <option>Arizona </option>
+                                                <option>Arkansas </option>
+                                                <option>California </option>
+                                                <option>Colorado </option>
+                                                <option>Connecticut </option>
+                                                <option>Delaware </option>
+                                                <option>Florida </option>
+                                                <option>Georgia </option>
+                                                <option>Hawaii </option>
+                                                <option>Idaho </option>
+                                                <option>Illinois Indiana </option>
+                                                <option>Iowa </option>
+                                                <option>Kansas </option>
+                                                <option>Kentucky </option>
+                                                <option>Louisiana </option>
+                                                <option>Maine </option>
+                                                <option>Maryland </option>
+                                                <option>Massachusetts </option>
+                                                <option>Michigan </option>
+                                                <option>Minnesota </option>
+                                                <option>Mississippi </option>
+                                                <option>Missouri </option>
+                                                <option>Montana Nebraska </option>
+                                                <option>Nevada </option>
+                                                <option>New Hampshire </option>
+                                                <option>New Jersey </option>
+                                                <option>New Mexico </option>
+                                                <option>New York </option>
+                                                <option>North Carolina </option>
+                                                <option>North Dakota </option>
+                                                <option>Ohio </option>
+                                                <option>Oklahoma </option>
+                                                <option>Oregon </option>
+                                                <option>Pennsylvania Rhode Island </option>
+                                                <option>South Carolina </option>
+                                                <option>South Dakota </option>
+                                                <option>Tennessee </option>
+                                                <option>Texas </option>
+                                                <option>Utah </option>
+                                                <option>Vermont </option>
+                                                <option>Virginia </option>
+                                                <option>Washington </option>
+                                                <option>West Virginia </option>
+                                                <option>Wisconsin </option>
+                                                <option>Wyoming</option>
+                                            </select>
+                                            <!--<select id="state_0" class="form-control select2-init" name="Address[0][city]">
+                                                <option value="" data-select2-id="2">Select a state ...</option>
+                                                <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                    <option value="AK">Alaska</option>
+                                                    <option value="HI">Hawaii</option>
+                                                </optgroup>
+                                                <optgroup label="Pacific Time Zone">
+                                                    <option value="CA">California</option>
+                                                    <option value="NV">Nevada</option>
+                                                    <option value="OR">Oregon</option>
+                                                    <option value="WA">Washington</option>
+                                                </optgroup>
+                                            </select>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="customer-startdate_0">Start Date</label>
+                                            <div class="input-group">
+                                                <input type="text" id="customer-startdate_0" class="form-control datepicker-init" name="Address[0][startdate]">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="far fa-calendar-alt"></i></span>
                                                 </div>
-
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="customer-enddate_0">End Date</label>
-                                                <input type="text" id="customer-enddate_0"
-                                                       class="form-control datepicker-init" name="Address[0][enddate]">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <textarea name="Address[0][desc]" id="desc_0" class="ckeditor-init"
-                                                          rows="10" cols="80"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div>
-                                                <a href="javascript:void(0)"
-                                                   class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="customer-enddate_0">End Date</label>
+                                            <div class="input-group">
+                                                <input type="text" id="customer-enddate_0" class="form-control datepicker-init" name="Address[0][enddate]">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </fieldset>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <textarea name="Address[0][desc]" id="desc_0" class="ckeditor-init" rows="10" cols="80"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div>
+                                            <a href="javascript:void(0)" class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a class="pull-right btn btn-success btn-xs" id="add-more"><i class="fa fa-plus"></i>
-                            Add more address</a>
-                        <div class="clearfix"></div>
+                <div class="card">
+                    <div>
+                        <a class="btn btn-success btn-sm" id="add-more" href="javascript:;" role="button"><i class="fa fa-plus"></i> Add more address</a>
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                     </div>
 
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
+
                 </div>
-
-
             </form>
         </div>
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+<script src="cloneData.js" type="text/javascript"></script>
 <script>
-
-
     $('a#add-more').cloneData({
         mainContainerId: 'main-container', // Main container Should be ID
         cloneContainer: 'container-item', // Which you want to clone
@@ -226,6 +279,7 @@
         },
         afterRender: function () {
             console.info(':: After rendered callback called');
+            //$(".selectpicker").selectpicker('refresh');
         },
         afterRemove: function () {
             console.warn(':: After remove callback called');
@@ -233,11 +287,12 @@
         beforeRemove: function () {
             console.warn(':: Before remove callback called');
         }
+
     });
 
-    $('.select2').select2({
+    /*$('.select2').select2({
         placeholder: 'Select a month'
-    });
+    });*/
 
     $(document).ready(function () {
         $('.datepicker').datepicker();
@@ -256,11 +311,5 @@
 
 
 </script>
-<style>
-    .select2-container {
-        padding: 0;
-        border: none;
-    }
-</style>
 </body>
 </html>
