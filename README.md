@@ -5,7 +5,7 @@
 Demo
 -----
 
-* [Demo 1](https://demo.examruler.com/clone-html-from//) - (Address Book).
+* [Demo 1](http://demo.examruler.com/dynamic-from-element) - (Address Book).
 
 
 
@@ -19,27 +19,33 @@ Demo
 
 
 <div class="container">
-    <div class="margin-t-md">
+    <h3>NOTE: If you are using any third party plugin then you must add following class to initiate.</h3>
+    <ol>
+        <li>Bootstrap Datepicker: add class into input "<span class="text-danger">datepicker-init</span>"</li>
+        <li>Ckeditor: add class into input "<span class="text-danger">ckeditor-init</span>"</li>
+        <li>Select2: add class into input "<span class="text-danger">select2-init</span>"</li>
+        <li>Chosen Dropdown: add class into input "<span class="text-danger">chosen-init</span>"</li>
+    </ol>
 
+
+    <div class="margin-t-md">
         <div class="customer-form">
-        <h3>Dynamic Form</h3>
-            <form id="" action="/create" method="post" role="form">
+            <h3>Dynamic Form</h3>
+            <form id="" action="submit.php" method="post" role="form" autocomplete="off">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label" for="customer-first_name">First name</label>
                             <input type="text" id="customer-first_name" class="form-control" name="Customer[first_name]"
-                                   maxlength="32" aria-required="true">
-
+                                   maxlength="32" aria-required="true" placeholder="Rajneesh">
                             <p class="help-block help-block-error"></p>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group field-customer-last_name required">
+                        <div class="form-group">
                             <label class="control-label" for="customer-last_name">Last name</label>
                             <input type="text" id="customer-last_name" class="form-control" name="Customer[last_name]"
-                                   maxlength="64" aria-required="true">
-
+                                   maxlength="64" aria-required="true" placeholder="Gautam">
                         </div>
                     </div>
                 </div>
@@ -49,17 +55,16 @@ Demo
                         <div class="form-group">
                             <label class="control-label" for="customer-email">Email</label>
                             <input type="text" id="customer-email" class="form-control" name="Customer[email]"
-                                   maxlength="32" aria-required="true">
+                                   maxlength="32" aria-required="true" placeholder="rajneeshgautam24@gmail.com">
 
                             <p class="help-block help-block-error"></p>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group field-customer-last_name required">
-                            <label class="control-label" for="customer-mobile">Mobile</label>
-                            <input type="text" id="customer-mobile" class="form-control" name="Customer[mobile]"
-                                   maxlength="64" aria-required="true">
 
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="customer-mobile">Mobile</label>
+                            <input type="text" id="customer-mobile" class="form-control" name="Customer[mobile]" placeholder="9935723456">
                         </div>
                     </div>
                 </div>
@@ -73,9 +78,9 @@ Demo
                                 <legend style="width: auto;padding:10px;">Address: 1</legend>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <label class="control-label" for="full_name_0">Full name</label>
+                                        <label class="control-label" for="full_name_0">Full Name</label>
                                         <input type="text" id="full_name_0" class="form-control"
-                                               name="Address[0][full_name]" maxlength="128">
+                                               name="Address[0][full_name]" maxlength="128" placeholder="Full Name">
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -83,22 +88,10 @@ Demo
                                                 <label class="control-label" for="address_line_one_0">Address line
                                                     1</label>
                                                 <input type="text" id="address_line_one_0" class="form-control"
-                                                       name="Address[0][address_line1]" maxlength="255">
+                                                       name="Address[0][address_line1]" placeholder="Address Line 1">
                                                 <p class="help-block help-block-error"></p>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="address_line_two_0">Address line
-                                                    2</label>
-                                                <input type="text" id="address_line_two_0" class="form-control"
-                                                       name="Address[0][address_line2]" maxlength="255">
-                                                <p class="help-block help-block-error"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="control-label" for="city_0">City</label>
@@ -107,14 +100,20 @@ Demo
                                                 <p class="help-block help-block-error"></p>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label" for="customer-startdate_0">Start Date</label>
+                                                <input type="text" id="customer-startdate_0" class="form-control datepicker-init" name="Address[0][startdate]">
+                                            </div>
+                                        </div>
 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="control-label" for="state_0">State</label>
 
-                                                <select id="state_0" class="form-control select2"
-                                                        name="Address[0][city]">
+                                                <select id="state_0" class="form-control select2-init" name="Address[0][state]">
                                                     <option value="" data-select2-id="2">Select a state ...</option>
                                                     <optgroup label="Alaskan/Hawaiian Time Zone">
                                                         <option value="AK">Alaska</option>
@@ -129,12 +128,24 @@ Demo
                                                 </select>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div>
-                                        <a href="javascript:void(0)"
-                                           class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <textarea name="Address[0][desc]" id="desc_0" class="ckeditor-init"
+                                                          rows="5" cols="80"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div>
+                                                <a href="javascript:void(0)"
+                                                   class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </fieldset>
                         </div>
 
@@ -143,9 +154,8 @@ Demo
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                        <a class="pull-right btn btn-success btn-xs" id="add-more"><i
-                                class="fa fa-plus"></i>
-                            Add address</a>
+                        <a href="javascript:;" class="pull-right btn btn-success btn-xs" id="add-more"><i class="fa fa-plus"></i>
+                            Add more address</a>
                         <div class="clearfix"></div>
                     </div>
 
