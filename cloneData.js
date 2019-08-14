@@ -6,7 +6,6 @@
  * @CreadtedOn 24/07/2019
  *
  @example:
-
  $('a#add-education').cloneData({
             mainContainerId: 'main-container', // Main container Should be ID
             cloneContainer: 'clone-container', // Which you want to clone
@@ -46,26 +45,10 @@
 
 (function($) {
 
-    $.fn.cloneData = function(options) {
+    $.fn.cloneData = function(options, callback) {
 
-        if (typeof init === 'function') { // make sure the before callback is a function
-            init.call(this); // brings the scope to the before callback
-        }
-
-        if (typeof beforeRender === 'function') { // make sure the before callback is a function
-            beforeRender.call(this); // brings the scope to the before callback
-        }
-
-        if (typeof afterRender === 'function') { // make sure the after callback is a function
-            afterRender.call(this); // brings the scope to the after callback
-        }
-
-        if (typeof beforeRemove === 'function') { // make sure the after callback is a function
-            beforeRemove.call(this); // brings the scope to the after callback
-        }
-
-        if (typeof afterRemove === 'function') { // make sure the after callback is a function
-            afterRemove.call(this); // brings the scope to the after callback
+        if (typeof callback === 'function') { // make sure the after callback is a function
+            callback.call(this); // brings the scope to the after callback
         }
 
         let settings = jQuery.extend({
@@ -86,22 +69,18 @@
             counterIndex: 0,
             select2InitIds: [],
             ckeditorIds: [],
-        }, options);
-
-        // extend the options from pre-defined values:
-        const callback = $.extend({
             init: function() {},
             beforeRender: function() {},
             afterRender: function() {},
             beforeRemove: function() {},
             afterRemove: function() {},
-        }, arguments[0] || {});
+        }, options);
 
         // call the beforeRender and apply the scope:
-        callback.init.call(this);
+        settings.init.call(this);
 
         let addItem = function () {
-            callback.beforeRender.call(this);
+            settings.beforeRender.call(this);
 
             let item_exists = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
 
@@ -262,7 +241,7 @@
 
 
             });
-            callback.afterRender.call(this);
+            settings.afterRender.call(this);
             settings.counterIndex = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
             return false;
         }
@@ -400,7 +379,7 @@
         });
 
         $(document).on('click', '.' + settings.removeButtonClass, function(){
-            callback.beforeRemove.call(this);
+            settings.beforeRemove.call(this);
             if($('.' + settings.cloneContainer + '.' + settings.copyClass).length > settings.minLimit){
                 if(settings.removeConfirm){
                     if(confirm(settings.removeConfirmMessage)){
@@ -416,7 +395,7 @@
                     });
                 }
                 settings.counterIndex--;
-                callback.afterRemove.call(this);
+                settings.afterRemove.call(this);
             }else{
                 alert('You must have minimum ('+ settings.minLimit + ') item.');
             }
