@@ -24,7 +24,7 @@
                 console.info(':: Before rendered callback called');
             },
             afterRender: function() {
-                console.info(':: After rendered callback called');
+                console.info(':: After rendered callback called'); // Return clone object
             },
             afterRemove: function() {
                 console.warn(':: After remove callback called');
@@ -46,10 +46,6 @@
 (function($) {
 
     $.fn.cloneData = function(options, callback) {
-
-        if (typeof callback === 'function') { // make sure the after callback is a function
-            callback.call(this); // brings the scope to the after callback
-        }
 
         let settings = jQuery.extend({
             mainContainerId: "clone-container",
@@ -75,6 +71,10 @@
             beforeRemove: function() {},
             afterRemove: function() {},
         }, options);
+
+        if (typeof callback === 'function') { // make sure the after callback is a function
+            callback.call(this); // brings the scope to the after callback
+        }
 
         // call the beforeRender and apply the scope:
         settings.init.call(this);
@@ -241,7 +241,7 @@
 
 
             });
-            settings.afterRender.call(this);
+            settings.afterRender.call({index: settings.counterIndex});
             settings.counterIndex = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
             return false;
         }
