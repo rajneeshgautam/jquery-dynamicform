@@ -5,7 +5,7 @@
 Demo
 -----
 
-* [Demo 1](http://demo.examruler.com/dynamic-from-element) - (Address Book).
+* [Demo 1](http://demo.examruler.com/dynamic-from) - (Address Book).
 
 
 
