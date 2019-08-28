@@ -200,11 +200,11 @@
                         $(this).chosen().trigger('chosen:update');
                     });
 
-                    if($('.datepicker-init').length > 0) {
+                    if($.fn.datepicker && $('.datepicker-init').length > 0) {
                         $('.datepicker-init').datepicker({autoclose:true});
                     }
 
-                    if (settings.select2InitIds.length > 0) {
+                    if ($.fn.select2 && settings.select2InitIds.length > 0) {
                         //console.warn(settings.select2InitIds);
                         $.each(settings.select2InitIds, function (index, id) {
                             $(id).select2({
@@ -217,7 +217,7 @@
                         settings.select2InitIds = [];
                     }
                     //console.log(settings.ckeditorIds);
-                    if (settings.ckeditorIds.length > 0) {
+                    if (window.CKEDITOR && settings.ckeditorIds.length > 0) {
                         $.each(settings.ckeditorIds, function (index, id) {
                             /*let editor = CKEDITOR.instances[id];
                             if (editor) { editor.destroy(true); }*/
