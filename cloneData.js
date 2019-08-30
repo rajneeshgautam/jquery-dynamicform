@@ -186,11 +186,12 @@
                 });
             }
 
+            $(clone).attr('data-index' , settings.counterIndex);
 
-            $('#' + settings.mainContainerId).append($(clone).attr('data' , settings.counterIndex).html()).ready(function(){
+            $('#' + settings.mainContainerId).append($(clone).html()).ready(function(){
 
                 /* Add data index into clone div */
-                $(this).find('.' + settings.cloneContainer+':last').attr('data' , settings.counterIndex);
+                $(this).find('.' + settings.cloneContainer+':last').attr('data-index' , settings.counterIndex);
 
                 /* Append cloned HTML */
                 $('.' + settings.cloneContainer).slideDown(400, function(){
@@ -201,7 +202,11 @@
                     });
 
                     if($.fn.datepicker && $('.datepicker-init').length > 0) {
-                        $('.datepicker-init').datepicker({autoclose:true});
+                        $('.datepicker-init').datepicker({autoclose: true});
+                    }
+
+                    if($.fn.datetimepicker && $('.datetimepicker-init').length > 0) {
+                        $('.datetimepicker-init').datetimepicker({autoclose: true});
                     }
 
                     if ($.fn.select2 && settings.select2InitIds.length > 0) {
@@ -216,7 +221,7 @@
                         });
                         settings.select2InitIds = [];
                     }
-                    //console.log(settings.ckeditorIds);
+
                     if (window.CKEDITOR && settings.ckeditorIds.length > 0) {
                         $.each(settings.ckeditorIds, function (index, id) {
                             /*let editor = CKEDITOR.instances[id];
@@ -247,6 +252,13 @@
         }
 
         let reInitialize = function () {
+
+
+            $('.' + settings.cloneContainer + '.' + settings.copyClass+'[data-index]').each(function(parent_index, item){
+                $(this).attr('data-index', parent_index);
+            });
+
+
             $('.' + settings.cloneContainer + '.' + settings.copyClass).each(function(parent_index, item) {
                 let heading_text = $(item).find('legend').text();
                 let headingArray = heading_text.split(' ');
@@ -300,7 +312,6 @@
 
                     $(this).attr('name', input_name);
                 });
-
             });
         }
 
@@ -313,7 +324,7 @@
 
             /* html clone and store in a variable */
             settings.cloneHtml = $(master).clone();
-            $(settings.cloneHtml).find('.' + settings.cloneContainer).addClass(settings.copyClass).attr('data' , settings.counterIndex).attr('style', 'display:none;').append(settings.append);
+            $(settings.cloneHtml).find('.' + settings.cloneContainer).addClass(settings.copyClass).attr('style', 'display:none;').append(settings.append);
 
             /* Remove chosen extra html */
             $(settings.cloneHtml).find('.chosen-container').each(function(){
@@ -394,6 +405,7 @@
                         reInitialize();
                     });
                 }
+
                 settings.counterIndex--;
                 settings.afterRemove.call(this);
             }else{
