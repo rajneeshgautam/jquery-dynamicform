@@ -5,8 +5,8 @@
 Demo
 -----
 
-* [Advance Form Demo](http://demo.examruler.com/dynamic-from).
-* [Basic Form Demo](http://demo.examruler.com/dynamic-from/basic-form.html).
+* [Advance Form Demo](http://demo.examruler.com/dynamic-form).
+* [Basic Form Demo](http://demo.examruler.com/dynamic-form/basic-form.html).
 
 
 
