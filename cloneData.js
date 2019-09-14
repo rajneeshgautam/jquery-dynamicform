@@ -47,7 +47,7 @@
 
     $.fn.cloneData = function(options, callback) {
 
-        let settings = jQuery.extend({
+        var settings = jQuery.extend({
             mainContainerId: "clone-container",
             cloneContainer: "clone-item",
             excludeHTML: ".exclude",
@@ -79,10 +79,10 @@
         // call the beforeRender and apply the scope:
         settings.init.call(this);
 
-        let addItem = function () {
+        var addItem = function () {
             settings.beforeRender.call(this);
 
-            let item_exists = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
+            var item_exists = $('.' + settings.cloneContainer + '.' + settings.copyClass).length;
 
             // stop append HTML if maximum limit exceed
             if (item_exists >= settings.maxLimit){
@@ -90,11 +90,11 @@
                 return false;
             }
 
-            let clone = settings.cloneHtml;
+            var clone = settings.cloneHtml;
 
             // Increment Clone IDs
             if ( $(clone).attr('id') ){
-                let newid = $(clone).attr('id') + (item_exists +1);
+                var newid = $(clone).attr('id') + (item_exists +1);
                 $(clone).attr('id', newid);
             }
 
@@ -112,14 +112,14 @@
                 $(this).attr('for', $(this).attr('for').replace(/.$/, settings.counterIndex));
             });
             //console.log($(clone).html());
-            let heading_text = $(clone).find('legend').text();
-            let headingArray = heading_text.split(' ');
+            var heading_text = $(clone).find('legend').text();
+            var headingArray = heading_text.split(' ');
             //console.log(heading_text);
             if(headingArray.length > 0){
                 heading_text = '';
                 //console.log(headingArray);
                 $.each(headingArray, function(index, item){
-                    let data = item.trim();
+                    var data = item.trim();
                     //console.log(data);
                     if(isNaN(data)){
                         heading_text += index == 0 ? '':' ';
@@ -135,20 +135,20 @@
             });
 
             $(clone).find('[name]').each(function(){
-                let newid = $(this).attr('name') + (item_exists + 1);
-                let name_array = $(this).attr('name').split("[");
-                let input_name = null;
+                var newid = $(this).attr('name') + (item_exists + 1);
+                var name_array = $(this).attr('name').split("[");
+                var input_name = null;
                 if(name_array.length > 1){
                     input_name = name_array[0];
                 }else{
                     input_name = name_array[0].replace(new RegExp("[0-9]", "g"), settings.counterIndex);
                 }
 
-                let words = newid.match(/[^[\]]+(?=])/g)
+                var words = newid.match(/[^[\]]+(?=])/g)
 
                 if (words) {
                     newid.replace(/\[(.+?)\]/g, function($0, $1) {
-                        parent_index = !isNaN($1) ? settings.counterIndex : $1;
+                        var parent_index = !isNaN($1) ? settings.counterIndex : $1;
                         input_name += '['+ parent_index +']';
                     })
                 }
@@ -224,12 +224,12 @@
 
                     if (window.CKEDITOR && settings.ckeditorIds.length > 0) {
                         $.each(settings.ckeditorIds, function (index, id) {
-                            /*let editor = CKEDITOR.instances[id];
+                            /*var editor = CKEDITOR.instances[id];
                             if (editor) { editor.destroy(true); }*/
                             //console.log(id);
                             CKEDITOR.replace(id);
 
-                            let $ids = $('[id=cke_' + id + ']');
+                            var $ids = $('[id=cke_' + id + ']');
                             if ($ids.length > 0) {
                                 //console.log($ids);
                                 $ids.remove();
@@ -251,7 +251,7 @@
             return false;
         }
 
-        let reInitialize = function () {
+        var reInitialize = function () {
 
 
             $('.' + settings.cloneContainer + '.' + settings.copyClass+'[data-index]').each(function(parent_index, item){
@@ -260,14 +260,14 @@
 
 
             $('.' + settings.cloneContainer + '.' + settings.copyClass).each(function(parent_index, item) {
-                let heading_text = $(item).find('legend').text();
-                let headingArray = heading_text.split(' ');
+                var heading_text = $(item).find('legend').text();
+                var headingArray = heading_text.split(' ');
                 //console.log(heading_text);
                 if(headingArray.length > 0){
                     heading_text = '';
                     //console.log(headingArray);
                     $.each(headingArray, function(index, item){
-                        let data = item.trim();
+                        var data = item.trim();
                         //console.log(data);
                         if(isNaN(data)){
                             heading_text += index == 0 ? '':' ';
@@ -292,20 +292,20 @@
 
                 $(item).find('[name]').each(function(){
                     //updateNameAttribute(this);
-                    let newid = $(this).attr('name') + (settings.counterIndex + 1);
-                    let name_array = $(this).attr('name').split("[");
-                    let input_name = null;
+                    var newid = $(this).attr('name') + (settings.counterIndex + 1);
+                    var name_array = $(this).attr('name').split("[");
+                    var input_name = null;
                     if(name_array.length > 1){
                         input_name = name_array[0];
                     }else{
                         input_name = name_array[0].replace(new RegExp("[0-9]", "g"), parent_index);
                     }
 
-                    let words = newid.match(/[^[\]]+(?=])/g)
+                    var words = newid.match(/[^[\]]+(?=])/g)
 
                     if (words) {
                         newid.replace(/\[(.+?)\]/g, function($0, $1) {
-                            let input_index = !isNaN($1) ? parent_index : $1;
+                            var input_index = !isNaN($1) ? parent_index : $1;
                             input_name += '['+ input_index +']';
                         })
                     }
@@ -320,7 +320,7 @@
 
         /* Remove all extra attribute and plugin data from cloned HTML*/
         $(options).each(function(index, option){
-            let master = $('#' + settings.mainContainerId + ":first");
+            var master = $('#' + settings.mainContainerId + ":first");
 
             /* html clone and store in a variable */
             settings.cloneHtml = $(master).clone();
@@ -345,7 +345,7 @@
 
             /* Reset field values if required */
             $(settings.cloneHtml).find(':input').each(function(){
-                let type = $(this).attr('type');
+                var type = $(this).attr('type');
 
                 switch(type){
                     case "button":
@@ -382,7 +382,7 @@
 
             /* Render default HTML container */
             if(settings.defaultRender > 0){
-                for (let i = 0 ;i < settings.defaultRender; i++){
+                for (var i = 0 ;i < settings.defaultRender; i++){
                     "use strict";
                     addItem();
                 }
