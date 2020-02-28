@@ -92,7 +92,7 @@
             var item_exists = $('.' + settings.cloneContainer).length;
 
             // stop append HTML if maximum limit exceed
-            if (item_exists >= settings.maxLimit){
+            if (settings.maxLimit != 0 && item_exists >= settings.maxLimit){
                 alert('You cannot exceed more then '+ settings.maxLimit +' item(s).');
                 return false;
             }
@@ -141,7 +141,7 @@
             var newID         = id;
 
             if (id !== undefined) {
-                    newID = incrementLastNumber(id, index);
+                    newID = _incrementLastNumber(id, index);
                     $elem.attr( 'id', newID);
             }
 
@@ -156,7 +156,7 @@
             return newID;
         }
 
-        var incrementLastNumber = function (string, index) {
+        var _incrementLastNumber = function (string, index) {
             return string.replace(/[0-9]+(?!.*[0-9])/, function(match) {
                 return index;
             });
@@ -317,6 +317,8 @@
                         });
                     }
                 }
+            }else{
+                alert('you must have at least one item.');
             }
         };
 
