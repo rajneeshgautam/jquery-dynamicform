@@ -93,7 +93,7 @@
 
             // stop append HTML if maximum limit exceed
             if (settings.maxLimit != 0 && item_exists >= settings.maxLimit){
-                alert('You cannot exceed more then '+ settings.maxLimit +' item(s).');
+                alert("More than "+ settings.maxLimit +" degrees can\'t be added in one form. Please 'Add New'.");
                 return false;
             }
 
@@ -235,6 +235,12 @@
                 $(this).remove();
             });
 
+            if($template.find('.select2-container').length > 0){
+                $template.find('.select2-container').each(function(){
+                    $(this).remove();
+                });
+            }
+
             $template.find('.select2-container').remove();
 
             //Remove Elements with excludeHTML
@@ -261,9 +267,17 @@
 
         var _initializePlugins = function(){
             /* Initialize again chosen dropdown after render HTML */
-            $('.chosen-init').each(function(){
-                $(this).chosen().trigger('chosen:update');
-            });
+            if($('.chosen-init').length >0){
+                $('.chosen-init').each(function(){
+                    $(this).chosen().trigger('chosen:update');
+                });
+            }
+
+            if($('.select2').length >0){
+                $('.select2').each(function(){
+                    $(this).select2({ width: '100%' }).trigger('select2:update');
+                });
+            }
 
             if($.fn.datepicker && $('.datepicker-init').length > 0) {
                 $('.datepicker-init').datepicker({autoclose: true});
@@ -313,6 +327,7 @@
                         $elem.parents('.' + settings.cloneContainer).slideUp(function(){
                             $(this).remove();
                             _updateAttributes();
+                            settings.afterRemove.call(this);
                             //_initializePlugins();
                         });
                     }
@@ -328,6 +343,7 @@
 
 
         $(document).on('click', '.' + settings.removeButtonClass, function(){
+            settings.beforeRemove.call(this);
             _deleteItem($(this));
         });
 
