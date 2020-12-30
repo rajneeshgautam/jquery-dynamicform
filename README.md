@@ -5,8 +5,8 @@
 Demo
 -----
 
-* [Advance Form Demo](http://plugin.examruler.com/dynamic-form).
-* [Basic Form Demo](http://plugin.examruler.com/dynamic-form/basic-form.html).
+* [Advance Form Demo](http://plugin.examruler.com).
+* [Basic Form Demo](http://plugin.examruler.com/basic-form.html).
 
 
 
