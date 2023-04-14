@@ -322,15 +322,13 @@
 
             var count = _count();
             if (count > settings.minLimit) {
-                if(settings.removeConfirm){
-                    if(confirm(settings.removeConfirmMessage)){
-                        $elem.parents('.' + settings.cloneContainer).slideUp(function(){
-                            $(this).remove();
-                            _updateAttributes();
-                            settings.afterRemove.call(this);
-                            //_initializePlugins();
-                        });
-                    }
+                if(!settings.removeConfirm||confirm(settings.removeConfirmMessage)){
+                    $elem.parents('.' + settings.cloneContainer).slideUp(function(){
+                        $(this).remove();
+                        _updateAttributes();
+                        settings.afterRemove.call(this);
+                        //_initializePlugins();
+                    });
                 }
             }else{
                 alert('you must have at least one item.');
